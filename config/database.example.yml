@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: notational_momentum_development
+  pool: 5
+  username: notational_momentum
+  password: ""
