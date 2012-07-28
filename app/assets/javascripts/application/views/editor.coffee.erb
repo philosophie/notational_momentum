@@ -1,0 +1,30 @@
+class NM.Editor extends Backbone.View
+
+  editor: null
+
+  editorOptions:
+    clientSideStorage: true
+    basePath: 'epiceditor'
+    localStorageName: 'epiceditor'
+    parser: marked
+    splitscreen: true
+    file:
+      name: 'epiceditor'
+      defaultContent: ''
+      autoSave: 100
+    theme:
+      base:'/themes/base/epiceditor.css'
+      preview:'/themes/preview/github.css'
+      editor:'/themes/editor/epic-dark.css'
+    focusOnLoad: false
+    shortcut:
+      modifier: 18
+      fullscreen: 70
+      preview: 80
+      edit: 79
+
+  initialize: ->
+    @editorOptions.container = @$el[0]
+    @editor = new EpicEditor(@editorOptions).load()
+
+  render: -> @
