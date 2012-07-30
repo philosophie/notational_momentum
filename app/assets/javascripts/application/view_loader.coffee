@@ -1,4 +1,9 @@
 #= require_tree ./views
 
+VIEWS =
+  ".js-editor": NM.Views.Editor
+  ".js-status": NM.Views.Status
+
 $ ->
-  new NM.Editor(el: $(".js-editor")).render()
+  for selector, klass of VIEWS
+    new klass(el: element).render() for element in $(selector)

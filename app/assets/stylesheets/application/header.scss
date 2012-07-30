@@ -1,10 +1,17 @@
 header {
-  text-align: center;
+  color: #54ad9c;
 
   h1 {
-    color: #54ad9c;
-    font-size: 1em;
     font-family: courier;
+    font-size: 1em;
+    width: 50%;
+    display: inline-block;
+  }
+
+  span {
+    text-align: right;
+    display: inline-block;
+    width: 49%;
   }
 
 }
