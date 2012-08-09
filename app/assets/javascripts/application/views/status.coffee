@@ -7,6 +7,8 @@ class NM.Views.Status extends Backbone.View
   _onSignUpClick: (event) ->
     event.preventDefault()
 
+    console.log "LOL"
+
     new NM.Views.Users.New().render()
 
   render: ->
