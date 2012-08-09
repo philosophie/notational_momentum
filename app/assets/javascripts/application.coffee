@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery.caret
 #= require jquery.scrollTo.min
+#= require jquery.serialize_object
 #= require jquery_ujs
 #
 #= require underscore
@@ -17,3 +18,4 @@
 
 @NM =
   Views: {}
+  Models: {}

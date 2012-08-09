@@ -3,5 +3,5 @@ NotationalMomentum::Application.routes.draw do
 
   match "signup" => "users#new", via: :get
 
-  resource :account, controller: "users", only: [:new, :create]
+  resources :users, only: [:new, :create]
 end

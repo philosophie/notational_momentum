@@ -2,10 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   validates :email, presence: true, uniqueness: true, email: true
-  validates :password, presence: true, confirmation: true
-  validates :password_confirmation, presence: {
-    if: :password
-  }
+  validates :password, presence: true
 
   def password=(password)
     unless password.empty?

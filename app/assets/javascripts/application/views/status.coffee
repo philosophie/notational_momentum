@@ -9,6 +9,10 @@ class NM.Views.Status extends Backbone.View
     event.preventDefault()
 
     @subview = new NM.Views.SignUp()
+    @subview.on "done", =>
+      @subview.remove()
+      @subview = null
+      @render()
 
     @render()
 
@@ -18,4 +22,7 @@ class NM.Views.Status extends Backbone.View
     if @subview
       @$el.append(@subview.render().$el)
     else
-      @$el.html(@template(@))
+      @$el.html(@template(@toJSON()))
+
+  toJSON: ->
+    user: if NM.user then NM.user.toJSON() else null
