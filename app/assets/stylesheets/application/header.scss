@@ -1,17 +1,30 @@
 header {
   color: #54ad9c;
+  padding: 0.8em;
+  font-family: courier;
 
   h1 {
     font-family: courier;
     font-size: 1em;
     width: 50%;
     display: inline-block;
+    margin: 0;
   }
 
   span {
+    color: #666;
     text-align: right;
     display: inline-block;
     width: 49%;
+
+    a {
+      color: #54ad9c;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
 }
