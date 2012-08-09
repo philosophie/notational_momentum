@@ -1,7 +1,5 @@
-#= require ../users
-
-class NM.Views.Users.New extends Backbone.View
-  template: HandlebarsTemplates["users/new"]
+class NM.Views.SignUp extends Backbone.View
+  template: HandlebarsTemplates["user_form"]
 
   saving: false
 
