@@ -9,7 +9,7 @@
 #= require backbone_rails_sync
 #= require handlebars.runtime
 #
-#= require markdown
+#= require github_flavored_markdown
 #= require crevasse
 #
 #= require_self
