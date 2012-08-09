@@ -1,6 +1,23 @@
-#editor_wrapper > * {
-  height: 600px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  width: 50%;
-  display: inline-block;
+.editor {
+  .textarea_container, .previewer_container {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .textarea_padding {
+    padding: 0 20px;
+    background: #042029;
+  }
+  textarea {
+    width: 100%;
+    padding: 20px 0 !important;
+    height: 600px;
+    vertical-align: bottom;
+  }
+  .previewer {
+    height: 600px;
+    overflow: scroll;
+    padding: 20px;
+    background: #fff;
+  }
 }
