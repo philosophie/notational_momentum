@@ -16,7 +16,7 @@ class NM.Views.SignUp extends Backbone.View
 
   render: ->
     @$(":input").attr("disabled", @saving)
-    @$(".js-errors").text(@errorMessage)
+    @$(".js-errors").text(@errorMessage || "")
 
     @
 
