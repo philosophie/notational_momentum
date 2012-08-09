@@ -3,7 +3,9 @@ class NM.Views.Editor extends Backbone.View
 
   render: ->
     unless @crevassed
-      @$el.crevasse()
+      console.log "lol"
+      $previewer = @$el.children("div")
+      @$el.children("textarea").crevasse(previewer: $previewer)
       @crevassed = true
 
     @

@@ -1,4 +1,6 @@
-#editor {
+#editor_wrapper > * {
   height: 600px;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  width: 50%;
+  display: inline-block;
 }
