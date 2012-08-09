@@ -1,5 +1,6 @@
 class NM.Views.Status extends Backbone.View
   template: HandlebarsTemplates["status"]
+  subview: null
 
   events:
     "click .js-sign_up": "_onSignUpClick"
@@ -7,9 +8,14 @@ class NM.Views.Status extends Backbone.View
   _onSignUpClick: (event) ->
     event.preventDefault()
 
-    console.log "LOL"
+    @subview = new NM.Views.Users.New()
 
-    new NM.Views.Users.New().render()
+    @render()
 
   render: ->
-    @$el.html @template(@)
+    @$el.empty()
+
+    if @subview
+      @$el.append(@subview.render().$el)
+    else
+      @$el.html(@template(@))

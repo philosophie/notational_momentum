@@ -1,7 +1,6 @@
 #= require jquery
 #= require jquery.caret
 #= require jquery.scrollTo.min
-#= require jquery.simplemodal
 #= require jquery_ujs
 #
 #= require underscore
