@@ -2,25 +2,19 @@ header {
   color: #54ad9c;
   font-family: courier;
   position: relative;
+  background: #000;
 
-  h1 {
-    font-family: courier;
-    font-size: 1em;
-    width: 50%;
-    display: inline-block;
-    margin: 0;
+  .input_wrapper {
+    padding: 8px 20px;
   }
-
   input[type=text] {
     font-family: courier;
     color: #54ad9c;
     background: transparent;
     border: none;
-    padding: 8px 20px;
+    width: 100%;
     font-size: 1.3em;
     line-height: 1.3em;
-    width: 100%;
-    display: inline-block;
     margin: 0;
     outline: none;
   }
@@ -31,6 +25,34 @@ header {
     top: 12px;
     right: 20px;
     color: #666;
+  }
+
+  .search_results {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 0px;
+    ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #000;
+      padding-bottom: 8px;
+      li {
+        a {
+          display: block;
+          padding: 4px 20px;
+          font-size: 1.3em;
+          line-height: 1.3em;
+          color: #fff;
+          &:hover {
+            text-decoration: none;
+            background: #2d2d2d;
+          }
+        }
+      }
+    }
   }
 
 }
