@@ -1,7 +1,7 @@
 header {
   color: #54ad9c;
-  padding: 0.8em;
   font-family: courier;
+  position: relative;
 
   h1 {
     font-family: courier;
@@ -11,12 +11,26 @@ header {
     margin: 0;
   }
 
-  span {
-    color: #666;
-    text-align: right;
+  input[type=text] {
+    font-family: courier;
+    color: #54ad9c;
+    background: transparent;
+    border: none;
+    padding: 8px 20px;
+    font-size: 1.3em;
+    line-height: 1.3em;
+    width: 100%;
     display: inline-block;
-    width: 49%;
+    margin: 0;
+    outline: none;
+  }
 
+  .user_actions {
+    position: absolute;
+    text-align: right;
+    top: 12px;
+    right: 20px;
+    color: #666;
   }
 
 }

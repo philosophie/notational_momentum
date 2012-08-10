@@ -11,6 +11,9 @@ class NM.Views.Editor extends Backbone.View
     @$textarea.crevasse
       previewer: @$previewer
 
+    # Automatically focus the textarea
+    @$textarea.focus()
+
     $(window).resize(@_onWindowResize)
     $(window).trigger "resize"
 
