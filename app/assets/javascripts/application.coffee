@@ -6,7 +6,7 @@
 #
 #= require underscore
 #= require backbone
-#= require backbone_rails_sync
+#= require backbone.localStorage
 #= require handlebars.runtime
 #
 #= require github_flavored_markdown
@@ -19,3 +19,7 @@
 @NM =
   Views: {}
   Models: {}
+  Collections: {}
+
+$ ->
+  new NM.Application(el: $("body"))

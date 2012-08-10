@@ -1,0 +1,1 @@
+class NM.Models.Note extends Backbone.Model
