@@ -16,7 +16,9 @@ class Views.NewNoteBar extends Backbone.View
   notes: (@notes) ->
 
   onKeydown: (event) ->
-    @createNoteAndReset() if event.keyCode == 13
+    if event.keyCode == 13
+      @createNoteAndReset()
+      return false
 
   createNoteAndReset: ->
     val = @$el.val()
