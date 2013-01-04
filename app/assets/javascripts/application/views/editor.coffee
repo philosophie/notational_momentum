@@ -15,17 +15,14 @@ class Views.Editor extends Backbone.View
 
     @$previewer = @$el.find(".js-previewer")
     @$textarea = @$el.find(".js-textarea")
+
     @$textarea.crevasse
       previewer: @$previewer
-
-    # Automatically focus the textarea
-    @$textarea.focus()
 
     $(window).resize(@_onWindowResize)
     $(window).trigger "resize"
 
     @notes.on "selected", @setCurrentNote, @
-
     @currentNote = @notes.selectedNote()
 
   render: ->
