@@ -3,8 +3,15 @@ class Views.Editor extends Backbone.View
   $textarea: null
   $previewer: null
 
-  initialize: ->
+  currentNote: null
+
+  events:
+    "input textarea": "onTextareaInput"
+
+  initialize: (options) ->
     _.bindAll @, "_onWindowResize"
+
+    @notes = options.notes
 
     @$previewer = @$el.find(".js-previewer")
     @$textarea = @$el.find(".js-textarea")
@@ -17,7 +24,29 @@ class Views.Editor extends Backbone.View
     $(window).resize(@_onWindowResize)
     $(window).trigger "resize"
 
-  render: -> @
+    @notes.on "selected", @setCurrentNote, @
+
+    @currentNote = @notes.selectedNote()
+
+  render: ->
+    if @currentNote
+      @$textarea.val(@currentNote.get("body")).change()
+      @$textarea.attr("disabled", false).focus()
+    else
+      @$textarea.val("").change()
+      @$textarea.attr("disabled", true)
+
+    @
+
+  setCurrentNote: (@currentNote) ->
+    @render()
+
+  onTextareaInput: (event) ->
+    @updateNote()
+
+  updateNote: ->
+    @currentNote.set body: @$textarea.val()
+    @currentNote.save()
 
   _onWindowResize: ->
     # Set height of textarea and previewer

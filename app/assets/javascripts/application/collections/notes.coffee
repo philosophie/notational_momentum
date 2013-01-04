@@ -5,12 +5,19 @@ class @Notes extends Backbone.Collection
   localStorage: new Backbone.LocalStorage("notes")
 
   initialize: ->
-    @on "change", (model) ->
-      @unselectAllOtherNotes(model) if model.isSelected()
+    @on "selected", (model) ->
+      @unselectAllOtherNotes(model)
 
   selected: ->
-    this.filter (note) -> note.isSelected()
+    @filter (note) -> note.isSelected()
 
   unselectAllOtherNotes: (note) ->
     for model in @models
       model.unselect() if model != note
+
+  selectedNote: ->
+    @selected()[0]
+
+  destroySelectedNote: ->
+    if selectedNote = @selectedNote()
+      selectedNote.destroy()

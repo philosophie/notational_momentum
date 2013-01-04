@@ -5,6 +5,7 @@ class @Note extends Backbone.Model
   select: ->
     @set("selected", true)
     @save()
+    @trigger "selected", @
 
   unselect: ->
     @set("selected", false)

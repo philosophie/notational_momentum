@@ -9,7 +9,7 @@ class Views.NotesList extends Backbone.View
 
     @_refreshListItems() if @notes.length > 0
 
-    @notes.on "add", @_refreshListItems, @
+    @notes.on "add remove", @_refreshListItems, @
 
   _refreshListItems: ->
     @listItems = []
