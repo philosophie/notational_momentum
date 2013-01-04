@@ -31,6 +31,7 @@ class Views.Editor extends Backbone.View
   render: ->
     if @currentNote
       @$textarea.val(@currentNote.get("body")).change()
+      @$textarea.caretToEnd()
       @$textarea.attr("disabled", false).focus()
     else
       @$textarea.val("").change()

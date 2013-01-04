@@ -15,13 +15,11 @@ class @Application extends Backbone.View
     key.filter = -> true
 
     key "ctrl+l", => @newNoteBar.focus()
-
-    key "ctrl+esc", =>
-      @confirm @destroySelectedNote
+    key "ctrl+esc", => @confirm @destroySelectedNote
 
   destroySelectedNote: =>
     @notes.destroySelectedNote()
     @editor.setCurrentNote(null)
 
   confirm: (fn) ->
-    fn() if confirm("Are you sure you want to delete your note?")
+    fn() if confirm("Are you sure?")
