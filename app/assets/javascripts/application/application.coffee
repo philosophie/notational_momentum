@@ -1,9 +1,17 @@
-class NM.Application extends Backbone.View
-
-  editor: null
-  status: null
+class @Application extends Backbone.View
 
   initialize: ->
-    @titleBar = new NM.Views.TitleBar(el: $("js-title_bar")).render()
-    @editor = new NM.Views.Editor(el: $(".js-editor")).render()
-    @status = new NM.Views.Status(el: $(".js-status")).render()
+    @notes = new Notes
+    @notes.fetch()
+
+    @newNoteBar = new Views.NewNoteBar(el: $(".js-new_note_bar"), notes: @notes)
+    @notesList = new Views.NotesList(el: $(".js-notes_list"), notes: @notes)
+    @editor = new Views.Editor(el: $(".js-editor")).render()
+
+    @setupKeyboardShortcuts()
+
+  setupKeyboardShortcuts: ->
+    # Allow shortcuts while in textareas/inputs
+    key.filter = -> true
+
+    key "ctrl+l", => @newNoteBar.focus()

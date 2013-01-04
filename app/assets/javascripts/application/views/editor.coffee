@@ -1,4 +1,4 @@
-class NM.Views.Editor extends Backbone.View
+class Views.Editor extends Backbone.View
 
   $textarea: null
   $previewer: null

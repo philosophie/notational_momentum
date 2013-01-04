@@ -7,19 +7,18 @@
 #= require underscore
 #= require backbone
 #= require backbone.localStorage
-#= require handlebars.runtime
+#= require handlebars
 #
 #= require github_flavored_markdown
 #= require crevasse
+#= require keymaster
 #
 #= require_self
 #= require_tree ./templates
+#= require_tree ./application/models
 #= require_tree ./application
 
-@NM =
-  Views: {}
-  Models: {}
-  Collections: {}
+@Views = {}
 
 $ ->
-  new NM.Application(el: $("body"))
+  new Application(el: $("body"))
