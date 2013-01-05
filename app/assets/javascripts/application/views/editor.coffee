@@ -39,6 +39,9 @@ class Views.Editor extends Backbone.View
   setCurrentNote: (@currentNote) ->
     @render()
 
+  clearCurrentNote: ->
+    @setCurrentNote(null)
+
   onTextareaInput: (event) ->
     @updateNote()
 

@@ -19,7 +19,7 @@ class @Application extends Backbone.View
 
   destroySelectedNote: =>
     @notes.destroySelectedNote()
-    @editor.setCurrentNote(null)
+    @editor.clearCurrentNote()
 
   confirm: (fn) ->
     fn() if confirm("Are you sure?")
