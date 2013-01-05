@@ -37,6 +37,7 @@ class Views.NotesList extends Backbone.View
     for note in @filteredNotes
       @listItems.push new Views.NotesListItem(model: note)
     @render()
+    @moveSelectionTo(0, false)
 
   render: ->
     @$searchResults.empty()
@@ -88,8 +89,13 @@ class Views.NotesList extends Backbone.View
 
     note.select()
 
-  setCurrentNote: (@currentNote) ->
-    @$title.val @currentNote.get("title")
+  setCurrentNote: (@currentNote, open, setTitle) ->
+    @hide() if open
+    @$title.val @currentNote.get("title") if setTitle
+
+  clearCurrentNote: ->
+    @$title.val("")
+    @refreshListItems()
 
   moveSelectionDown: ->
     @moveSelectionTo _.indexOf(@filteredNotes, @currentNote) + 1
@@ -97,8 +103,7 @@ class Views.NotesList extends Backbone.View
   moveSelectionUp: ->
     @moveSelectionTo _.indexOf(@filteredNotes, @currentNote) - 1
 
-  moveSelectionTo: (index) ->
+  moveSelectionTo: (index, setTitle=true) ->
     return unless index >= 0 && index < @filteredNotes.length
     note = @filteredNotes[index]
-    note.select(false)
-    @setCurrentNote(note)
+    note.select(false, setTitle)

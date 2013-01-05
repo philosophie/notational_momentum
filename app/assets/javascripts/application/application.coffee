@@ -4,7 +4,7 @@ class @Application extends Backbone.View
     @notes = new Notes
     @notes.fetch()
 
-    @notesList = new Views.NotesList(el: $("@notes_list"), notes: @notes)
+    @list = new Views.NotesList(el: $("@notes_list"), notes: @notes)
     @editor = new Views.Editor(el: $(".js-editor"), notes: @notes).render()
 
     # @editor.on "focus", @onEditorFocus, @
@@ -15,15 +15,16 @@ class @Application extends Backbone.View
     # Allow shortcuts while in textareas/inputs
     key.filter = -> true
 
-    key "ctrl+l", => @notesList.focusTitle()
+    key "ctrl+l", => @list.focusTitle()
     key "ctrl+esc", => @confirm @destroySelectedNote
 
   destroySelectedNote: =>
     @notes.destroySelectedNote()
     @editor.clearCurrentNote()
+    @list.clearCurrentNote()
 
   confirm: (fn) ->
     fn() if confirm("Are you sure?")
 
   onEditorFocus: (event) ->
-    @notesList.hide()
+    @list.hide()

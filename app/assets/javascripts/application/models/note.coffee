@@ -2,10 +2,10 @@ class @Note extends Backbone.Model
 
   localStorage: new Backbone.LocalStorage("notes")
 
-  select: (focus=true) ->
+  select: (open=true, setTitle=true) ->
     @set("selected", true)
     @save()
-    @trigger "selected", @, focus
+    @trigger "selected", @, open, setTitle
 
   unselect: ->
     @set("selected", false)

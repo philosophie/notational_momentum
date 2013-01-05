@@ -25,11 +25,11 @@ class Views.Editor extends Backbone.View
     @notes.on "selected", @setCurrentNote, @
     @currentNote = @notes.selectedNote()
 
-  render: (focus) ->
+  render: (open) ->
     if @currentNote
       @$textarea.val(@currentNote.get("body")).change()
       @$textarea.attr("disabled", false)
-      if focus
+      if open
         @$textarea.caretToEnd()
         @trigger "focus"
     else
@@ -38,9 +38,8 @@ class Views.Editor extends Backbone.View
 
     @
 
-  setCurrentNote: (@currentNote, focus) ->
-    console.log focus
-    @render(focus)
+  setCurrentNote: (@currentNote, open) ->
+    @render(open)
 
   clearCurrentNote: ->
     @setCurrentNote(null)
