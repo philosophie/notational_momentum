@@ -3,6 +3,8 @@
 #= require jquery.scrollTo.min
 #= require jquery.serialize_object
 #= require jquery_ujs
+#= require role
+#= require jquery.role
 #
 #= require underscore
 #= require backbone

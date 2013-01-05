@@ -11,6 +11,10 @@ class @Notes extends Backbone.Collection
   selected: ->
     @filter (note) -> note.isSelected()
 
+  searchByTitle: (str) ->
+    regexp = new RegExp(str, "i")
+    @filter (note) -> note.get("title").search(regexp) >= 0
+
   unselectAllOtherNotes: (note) ->
     for model in @models
       model.unselect() if model != note
