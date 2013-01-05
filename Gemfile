@@ -17,3 +17,7 @@ group :assets do
   gem "jquery-rails", "~> 2.0.2"
   gem "handlebars_assets", "~> 0.6.2"
 end
+
+group :staging, :production do
+  gem "thin", "~> 1.5.0"
+end
