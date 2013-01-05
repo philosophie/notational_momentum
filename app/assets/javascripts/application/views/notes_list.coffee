@@ -63,7 +63,6 @@ class Views.NotesList extends Backbone.View
     @refreshListItems()
 
   onTitleKeydown: (event) ->
-    console.log event.keyCode
     switch event.keyCode
       when @KEY_CODES["enter"]
         if @currentNote?

@@ -12,7 +12,7 @@ class @Notes extends Backbone.Collection
     @filter (note) -> note.isSelected()
 
   searchByTitle: (str) ->
-    regexp = new RegExp(str, "i")
+    regexp = new RegExp(@escapeStringForRegExp(str), "i")
     @filter (note) -> note.get("title").search(regexp) >= 0
 
   unselectAllOtherNotes: (note) ->
@@ -25,3 +25,6 @@ class @Notes extends Backbone.Collection
   destroySelectedNote: ->
     if selectedNote = @selectedNote()
       selectedNote.destroy()
+
+  escapeStringForRegExp: (str) ->
+    str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
