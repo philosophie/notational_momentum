@@ -29,6 +29,8 @@ class Views.NotesList extends Backbone.View
     @notes.on "add remove", @refreshListItems, @
     @notes.on "selected", @setCurrentNote, @
 
+    @setCurrentNote @notes.selectedNote()
+
     $("body").click => @hide()
 
   refreshListItems: ->
@@ -89,7 +91,7 @@ class Views.NotesList extends Backbone.View
 
     note.select()
 
-  setCurrentNote: (@currentNote, open, setTitle) ->
+  setCurrentNote: (@currentNote, open=true, setTitle=true) ->
     @hide() if open
     @$title.val @currentNote.get("title") if setTitle
 
