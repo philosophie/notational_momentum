@@ -24,12 +24,12 @@ class Views.NotesList extends Backbone.View
 
     @$title = @$("@title")
 
-    @refreshListItems() if @notes.length > 0
-
     @notes.on "add remove", @refreshListItems, @
     @notes.on "selected", @setCurrentNote, @
 
-    @setCurrentNote @notes.selectedNote()
+    if @notes.length > 0
+    	@refreshListItems() 
+    	@setCurrentNote @notes.selectedNote()
 
     $("body").click => @hide()
 
