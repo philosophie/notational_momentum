@@ -101,14 +101,13 @@ class Views.NotesList extends Backbone.View
     @$title.val("")
     @refreshListItems()
     
-  createIntroNotes: =>
+  createIntroNotes: ->
     $.getJSON("intro.json", (data) =>
       $.each(data, (index, item) =>
-        note = new Note(title: item.titleVal, body: item.noteVal)
-        @notes.create(note)
+        @notes.create(title: item.title, body: item.body)
       )
     )
-    
+
   moveSelectionDown: ->
     @moveSelectionTo _.indexOf(@filteredNotes, @currentNote) + 1
 

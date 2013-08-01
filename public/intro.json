@@ -1,6 +1,6 @@
 [
   {
-    "noteVal": "# Welcome to Notational Momentum!\n\n## Shortcuts\n\n### In the order of most to least useful:\n\n| Key Combo  | Description\n|------------|--------------------------------------------|\n| `⌃ L`      | Place insertion point in search/title area\n| `Return`   | Begin editing note, creating it if necessary\n| `⌃ Escape` | Delete the selected note)",
-    "titleVal": "Shortcuts"
+    "body": "# Welcome to Notational Momentum!\n\n## Shortcuts\n\n### In the order of most to least useful:\n\n| Key Combo  | Description\n|------------|--------------------------------------------|\n| `⌃ L`      | Place insertion point in search/title area\n| `Return`   | Begin editing note, creating it if necessary\n| `⌃ Escape` | Delete the selected note)",
+    "title": "Shortcuts"
   }
 ]

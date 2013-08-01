@@ -12,7 +12,6 @@
 #= require handlebars
 #
 #= require marked
-#= require github_flavored_markdown
 #= require crevasse
 #= require keymaster
 #
