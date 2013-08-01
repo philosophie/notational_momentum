@@ -78,6 +78,8 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails-default-database (1.0.6)
+      railties
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -120,12 +122,13 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.1)
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 3.2.2)
   email_validator (~> 1.3.0)
   handlebars_assets (~> 0.6.2)
   jquery-rails (~> 2.0.2)
   pg (~> 0.14.0)
   rails (= 3.2.13)
+  rails-default-database (~> 1.0.6)
   sass-rails (~> 3.2.3)
   strong_parameters (~> 0.1.3)
   thin (~> 1.5.0)
