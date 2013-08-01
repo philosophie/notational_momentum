@@ -11,7 +11,7 @@
 #= require backbone.localStorage
 #= require handlebars
 #
-#= require github_flavored_markdown
+#= require marked
 #= require crevasse
 #= require keymaster
 #

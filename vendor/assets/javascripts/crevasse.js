@@ -1,5 +1,5 @@
 /*
-  Crevasse 0.3.2
+  Crevasse 0.4.5
   Built by Nick Giancola: https://github.com/patbenatar
   Details and source: https://github.com/patbenatar/crevasse
   Demo: https://patbenatar.github.com/crevasse
@@ -9,6 +9,8 @@
 (function() {
   var $, Crevasse,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $ = jQuery;
@@ -27,7 +29,8 @@
       previewer: null,
       editorStyle: "default",
       usePreviewerReset: true,
-      previewerStyle: "github"
+      previewerStyle: "github",
+      convertTabsToSpaces: 2
     };
 
     Crevasse.prototype.editor = null;
@@ -52,7 +55,7 @@
       }
       this.editor = new Crevasse.Editor($el, this.options);
       this.previewer = new Crevasse.Previewer(this.options.previewer, this.options);
-      this.editor.on("change", this._onEditorChange, this);
+      this.editor.bind("change", this._onEditorChange);
       if (this.editor.getText() !== "") {
         this._updatePreview();
       }
@@ -70,7 +73,54 @@
 
   })();
 
-  Crevasse.Editor = (function() {
+  Crevasse.Events = (function() {
+
+    function Events() {}
+
+    Events.prototype.bindings = {};
+
+    Events.prototype.bind = function(name, handler) {
+      if (this.bindings[name] == null) {
+        this.bindings[name] = [];
+      }
+      if (!Crevasse.utils.includes(this.bindings[name], handler)) {
+        return this.bindings[name].push(handler);
+      }
+    };
+
+    Events.prototype.unbind = function(name, handler) {
+      if (handler != null) {
+        if (this.bindings[name] != null) {
+          Crevasse.utils.remove(this.bindings[name], handler);
+        }
+        if (this.bindings[name].length < 1) {
+          return delete this.bindings[name];
+        }
+      } else {
+        return delete this.bindings[name];
+      }
+    };
+
+    Events.prototype.trigger = function(name) {
+      var handler, _i, _len, _ref, _results;
+      if (this.bindings[name] != null) {
+        _ref = this.bindings[name];
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          handler = _ref[_i];
+          _results.push(handler());
+        }
+        return _results;
+      }
+    };
+
+    return Events;
+
+  })();
+
+  Crevasse.Editor = (function(_super) {
+
+    __extends(Editor, _super);
 
     Editor.prototype.options = null;
 
@@ -78,16 +128,24 @@
 
     Editor.prototype.text = null;
 
+    Editor.prototype.spaces = null;
+
     function Editor($el, options) {
       this.$el = $el;
       this.options = options;
+      this._parseTabsToSpaces = __bind(this._parseTabsToSpaces, this);
+
+      this._replaceTabs = __bind(this._replaceTabs, this);
+
       this._onPaste = __bind(this._onPaste, this);
 
       this._onInput = __bind(this._onInput, this);
 
-      _.extend(this, Backbone.Events);
       this.$el.addClass("crevasse_editor");
       this.$el.addClass(this._theme());
+      if (this.options.convertTabsToSpaces) {
+        this._replaceTabs(this.options.convertTabsToSpaces);
+      }
       this.$el.bind("" + (this._inputEventName()) + " change", this._onInput);
       this.$el.bind("paste", this._onPaste);
       return this;
@@ -125,6 +183,21 @@
       }), 20);
     };
 
+    Editor.prototype._replaceTabs = function(numSpaces) {
+      this.spaces = "";
+      while (numSpaces--) {
+        this.spaces += " ";
+      }
+      return this.$el.bind("keydown", this._parseTabsToSpaces);
+    };
+
+    Editor.prototype._parseTabsToSpaces = function(event) {
+      if (event.keyCode === 9) {
+        event.preventDefault();
+        return this.$el.insertAtCaret(this.spaces);
+      }
+    };
+
     Editor.prototype._inputEventName = function() {
       if (this._supportsInputEvent()) {
         return "input";
@@ -147,11 +220,14 @@
 
     return Editor;
 
-  })();
+  })(Crevasse.Events);
 
   Crevasse.Previewer = (function() {
 
-    Previewer.prototype.DIALECT = "Gruber";
+    Previewer.prototype.LANG_MAP = {
+      'js': 'javascript',
+      'json': 'javascript'
+    };
 
     Previewer.prototype.options = null;
 
@@ -166,6 +242,7 @@
     Previewer.prototype.height = null;
 
     function Previewer($el, options) {
+      var _this = this;
       this.$el = $el;
       this.options = options;
       this._onResize = __bind(this._onResize, this);
@@ -187,6 +264,22 @@
       });
       this.$el.append(this.$offsetDeterminer);
       this.$el.bind("crevasse.resize", this._onResize);
+      marked.setOptions({
+        gfm: true,
+        pedantic: false,
+        sanitize: true,
+        highlight: function(code, lang) {
+          var processed_code;
+          lang = _this.LANG_MAP[lang] != null ? _this.LANG_MAP[lang] : lang;
+          processed_code = null;
+          if (typeof Rainbow !== "undefined" && Rainbow !== null) {
+            Rainbow.color(code, lang, function(highlighted_code) {
+              return processed_code = highlighted_code;
+            });
+          }
+          return processed_code || code;
+        }
+      });
       return this;
     }
 
@@ -195,7 +288,10 @@
       if (caretPosition == null) {
         caretPosition = null;
       }
-      this.$previewer.html(markdown.toHTML(text, this.DIALECT));
+      this.$previewer.html(this._parse(text));
+      if (typeof Rainbow !== "undefined" && Rainbow !== null) {
+        this.$previewer.find("code").addClass("rainbow");
+      }
       if (caretPosition != null) {
         offset = this._determineOffset(text.substr(0, caretPosition));
         if (offset < 0) {
@@ -220,7 +316,7 @@
 
     Previewer.prototype._determineOffset = function(text) {
       var textHeight;
-      this.$offsetDeterminer.html(markdown.toHTML(text, this.DIALECT));
+      this.$offsetDeterminer.html(this._parse(text));
       textHeight = this.$offsetDeterminer.outerHeight();
       return textHeight - this.height / 2;
     };
@@ -239,8 +335,35 @@
       return this.$offsetDeterminer.width(this.width);
     };
 
+    Previewer.prototype._parse = function(text) {
+      return marked(text);
+    };
+
     return Previewer;
 
   })();
+
+  Crevasse.utils = {};
+
+  Crevasse.utils.includes = function(array, value) {
+    var val, _i, _len;
+    for (_i = 0, _len = array.length; _i < _len; _i++) {
+      val = array[_i];
+      if (val === value) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  Crevasse.utils.remove = function(array, value) {
+    var i, val, _i, _len;
+    for (i = _i = 0, _len = array.length; _i < _len; i = ++_i) {
+      val = array[i];
+      if (val === value) {
+        array.splice(i, 1);
+      }
+    }
+  };
 
 }).call(this);
