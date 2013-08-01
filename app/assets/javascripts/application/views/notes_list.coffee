@@ -30,6 +30,8 @@ class Views.NotesList extends Backbone.View
     if @notes.length > 0
     	@refreshListItems() 
     	@setCurrentNote @notes.selectedNote()
+    else 
+      @createIntroNotes()
 
     $("body").click => @hide()
 
@@ -98,7 +100,15 @@ class Views.NotesList extends Backbone.View
   clearCurrentNote: ->
     @$title.val("")
     @refreshListItems()
-
+    
+  createIntroNotes: =>
+    $.getJSON("intro.json", (data) =>
+      $.each(data, (index, item) =>
+        note = new Note(title: item.titleVal, body: item.noteVal)
+        @notes.create(note)
+      )
+    )
+    
   moveSelectionDown: ->
     @moveSelectionTo _.indexOf(@filteredNotes, @currentNote) + 1
 
@@ -109,3 +119,4 @@ class Views.NotesList extends Backbone.View
     return unless index >= 0 && index < @filteredNotes.length
     note = @filteredNotes[index]
     note.select(false, setTitle)
+    
