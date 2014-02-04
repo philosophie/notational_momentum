@@ -6,6 +6,8 @@ gem "pg", "~> 0.14.0"
 
 gem "email_validator", "~> 1.3.0"
 
+gem "devise", "~> 2.2.3"
+
 
 # Security
 gem "strong_parameters", "~> 0.1.3"
