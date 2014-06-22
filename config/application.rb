@@ -4,7 +4,7 @@ require File.expand_path('../boot', __FILE__)
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
+# require "active_resource/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -62,7 +62,7 @@ module NotationalMomentum
     # parameters by using an attr_accessible or attr_protected declaration.
     #
     # This is true by default, but we use strong_parameters
-    config.active_record.whitelist_attributes = false
+    # config.active_record.whitelist_attributes = false
 
     # Enable the asset pipeline
     config.assets.enabled = true
